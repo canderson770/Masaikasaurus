@@ -17,14 +17,12 @@ public class AnimationController : MonoBehaviour
 		if (Input.GetAxis ("Horizontal") < 0) 
 		{
 			anim.SetLayerWeight(1, 0);
-			anim.SetLayerWeight (2, Mathf.Abs((Input.GetAxis("Horizontal")))/2);
-			print ("left");
+			anim.SetLayerWeight (2, Mathf.Abs((Input.GetAxis("Horizontal"))));
 		}
 		else if (Input.GetAxis ("Horizontal") > 0) 
 		{
-			anim.SetLayerWeight(1, Mathf.Abs((Input.GetAxis("Horizontal")))/2);
+			anim.SetLayerWeight(1, Mathf.Abs((Input.GetAxis("Horizontal"))));
 			anim.SetLayerWeight (2, 0);
-			print ("right");
 		}
 		else
 		{
