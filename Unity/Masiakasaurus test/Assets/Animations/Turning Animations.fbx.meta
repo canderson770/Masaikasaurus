@@ -558,7 +558,7 @@ ModelImporter:
     - serializedVersion: 16
       name: TURNING LEFT
       takeName: Take 001
-      firstFrame: 1
+      firstFrame: 2
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
@@ -970,7 +970,7 @@ ModelImporter:
     - serializedVersion: 16
       name: TURNING RIGHT
       takeName: Take 001
-      firstFrame: 60
+      firstFrame: 61
       lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
