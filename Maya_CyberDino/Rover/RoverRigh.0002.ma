@@ -1,6 +1,6 @@
 //Maya ASCII 2017ff05 scene
 //Name: RoverRigh.0002.ma
-//Last modified: Tue, Sep 05, 2017 12:56:38 PM
+//Last modified: Tue, Sep 05, 2017 04:05:27 PM
 //Codeset: 1252
 requires maya "2017ff05";
 currentUnit -l centimeter -a degree -t film;
@@ -13,8 +13,8 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "DACA31D1-4E77-DF28-A881-0CB78CF3576F";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 303.62718493107974 150.76699083141125 -259.55542134689688 ;
-	setAttr ".r" -type "double3" 344.66164726924035 -235.79999999998793 -360.00000000000671 ;
+	setAttr ".t" -type "double3" -175.84808770595194 88.909488254860918 -405.89399016255283 ;
+	setAttr ".r" -type "double3" 357.26164726911196 -167.40000000003263 -360 ;
 	setAttr ".rp" -type "double3" -1.7763568394002505e-015 0 0 ;
 	setAttr ".rpt" -type "double3" 1.9311765391329285e-015 2.4651903288156619e-032 1.7695972653286764e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
@@ -22,7 +22,7 @@ createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".ncp" 1;
-	setAttr ".coi" 364.43767110442838;
+	setAttr ".coi" 364.437671104456;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
