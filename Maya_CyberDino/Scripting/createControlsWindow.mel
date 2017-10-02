@@ -16,8 +16,6 @@ global proc ControlWindow()
     string $txtField = `textFieldGrp -parent $mainColumn -label "Control Name"`;
     string $floatField = `floatSliderGrp  -parent $mainColumn -label "Size" -minValue 0 -maxValue 100 -field 1 -value 1`;
     
-    
-    
     showWindow $mWindow;
 }
 
@@ -39,7 +37,6 @@ global proc CreateControl(string $type, string $nameF, string $scale)
      {
           
      }
-    
+	 
     $ctrl = `rename $ctrl $nameF`;
-    
 }

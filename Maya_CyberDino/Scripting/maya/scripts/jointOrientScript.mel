@@ -1,0 +1,30 @@
+global proc ShowOrient()
+{
+    if(`window -exists "OptionBoxWindow"` == false)
+	{
+		OrientJointOptions;
+		deleteUI "OptionBoxWindow";
+	}
+
+	string $sels[] = `ls -sl`;
+	if(size($sels) != 0)
+		jointOrientToggleAxesVisibility;
+	else
+	{
+		SelectAllJoints;
+		jointOrientToggleAxesVisibility;
+		select -cl;
+	}
+}
+
+global proc OrientJoint()
+{
+	if(`window -exists "OptionBoxWindow"` == true)
+	{
+		deleteUI "OptionBoxWindow";
+	}
+	else
+	{
+		OrientJointOptions;
+	}
+}
