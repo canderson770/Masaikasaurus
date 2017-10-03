@@ -1,3 +1,4 @@
+source randomPlacementScript;
 source scaleCompSwitchScript;
 source placeControlsScript;
 source jointOrientScript;
@@ -29,28 +30,39 @@ global proc ToolboxWindow()
     string $tab1Column = `columnLayout -adjustableColumn 1 -columnAlign "center" -parent $tabs`;
 	
 	separator -height 12 - parent $tab1Column;
-    string $deleteHistory = `button - parent $tab1Column -label "Delete History" -command "DeleteHistory"`;
-    string $freezeTransform = `button - parent $tab1Column -label "Freeze Transformations" -command "makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 -pn 1"`;
-	string $centerPivot = `button - parent $tab1Column -label "Center Pivot" -command "CenterPivot"`;
-	string $parentScaleConstrain = `button - parent $tab1Column -label "Parent and Scale Constrain" -command "ParentScaleConstrain()"`;
+    string $deleteHistoryBtn = `button - parent $tab1Column -label "Delete History" -command "DeleteHistory"`;
+    string $freezeTransformBtn = `button - parent $tab1Column -label "Freeze Transformations" -command "makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 -pn 1"`;
+	string $centerPivotBtn = `button - parent $tab1Column -label "Center Pivot" -command "CenterPivot"`;
+	string $parentScaleConstrainBtn = `button - parent $tab1Column -label "Parent and Scale Constrain" -command "ParentScaleConstrain()"`;
 	
 	separator -height 12 - parent $tab1Column;
-	string $orientJoint = `button - parent $tab1Column -label "Orient Joint Options" -command "OrientJoint()"`;
-	string $orientJointToggle = `button - parent $tab1Column -label "Toggle Local Axes Visibility" -command "ShowOrient()"`;
+	string $orientJointBtn = `button - parent $tab1Column -label "Orient Joint Options" -command "OrientJoint()"`;
+	string $orientJointToggleBtn = `button - parent $tab1Column -label "Toggle Local Axes Visibility" -command "ShowOrient()"`;
 	
 	separator -height 12 - parent $tab1Column;
 	string $scaleCompLabel = `text -label "Scale Compensation" -parent $tab1Column`;
 	string $scaleCompRow = `rowLayout -parent $tab1Column -numberOfColumns 2 -columnWidth 1 75 -adjustableColumn 2 -columnAttach 1 "both" 0`;
-		string $scaleCompOn = `button - parent $scaleCompRow -label "On" -command "ScaleCompSwitch(1)"`;
-		string $scaleCompOff = `button - parent $scaleCompRow  -label "Off" -command "ScaleCompSwitch(0)"`;
+		string $scaleCompOnBtn = `button - parent $scaleCompRow -label "On" -command "ScaleCompSwitch(1)"`;
+		string $scaleCompOffBtn = `button - parent $scaleCompRow  -label "Off" -command "ScaleCompSwitch(0)"`;
 	
 	separator -height 12 - parent $tab1Column;
-	string $createJoints = `button - parent $tab1Column -label "Turn Selection into Joints" -command "ConvertToJoints()"`;
-	string $placeControls = `button - parent $tab1Column -label "Place Controls" -command "PlaceControls()"`;
-	string $creatLocator = `button - parent $tab1Column -label "Create Locators" -command "CreateManyLocators()"`;
+	string $createJointsBtn = `button - parent $tab1Column -label "Turn Selection into Joints" -command "ConvertToJoints()"`;
+	string $placeControlsBtn = `button - parent $tab1Column -label "Place Controls" -command "PlaceControls()"`;
+	
+	separator -height 12 - parent $tab1Column;
+	string $creatLocatorBtn = `button - parent $tab1Column -label "Create Locators" -command "CreateManyLocators()"`;
+	string $locatorRow = `rowLayout -parent $tab1Column -numberOfColumns 2 -columnWidth 1 75 -adjustableColumn 2 -columnAttach 1 "both" 0`;
+		string $locatorButtons = `radioCollection -parent $locatorRow`;
+			string $locatorBtn1 = `radioButton -label "Each"`;
+			string $locatorBtn2 = `radioButton -label "All"`;
+		radioCollection -edit -select $locatorBtn1 $locatorButtons;
+
 	
 	separator -height 12 - parent $tab1Column;
 	string $renameBtn = `button - parent $tab1Column -label "Rename" -command "RenamePrompt()"`;
+	
+	separator -height 12 - parent $tab1Column;
+	string $randomPlaceBtn = `button - parent $tab1Column -label "Random Placement" -command "RandomPlacementPrompt()"`;
 	
 	separator -height 12 - parent $tab1Column;
 	
@@ -75,7 +87,8 @@ global proc ToolboxWindow()
 	string $myName = `text -label "2017  " -parent $mainColumn -align "right"`;
 	
     // showWindow $myWindow;
-	dockControl -area "right" -content $myWindow -allowedArea "left" -allowedArea "right" -label "My Toolbox" $myDock;
+	dockControl -area "left" -content $myWindow -allowedArea "left" -allowedArea "right" -label "My Toolbox" $myDock;
+	dockControl -edit -width 160 -fixedWidth 1 -height 560 -fixedHeight 1 $myDock;
 }
 
 global proc ParentScaleConstrain()
