@@ -7,7 +7,9 @@ source createLocatorScript;
 source createJointsScript;
 source createFKScript;
 
-global proc ToolboxWindow()
+global string $locatorBtnSelected = "unchanged";
+
+global proc MyToolboxWindow()
 {
     string $myWindow = "myToolboxWindow";
     string $myDock = "MyToolboxDock";
@@ -22,7 +24,8 @@ global proc ToolboxWindow()
 	string $mainColumn = `columnLayout -adjustableColumn 1 -columnAlign "center" -parent $myWindow`;
 	
 	string $imageRow = `rowLayout -parent $mainColumn -numberOfColumns 2 -adjustableColumn 2 -columnAlign 2 "center" -backgroundColor 1 1 1`;
-		string $myImage = `picture -image "logo-32.png" -parent $imageRow`;
+	    string $myImage = `picture -image "logo-32.png" -parent $imageRow`;
+		// string $myImageButton = `iconTextButton -style "iconOnly" -image "logo-32.png" -height 32 -flat 1 -width 32 -parent $imageRow -command "ToolboxWindow()"`;	
 		string $myName = `text -label "Cody Anderson" -parent $imageRow`;
 	
 	string $tabs = `tabLayout -parent $mainColumn`;
@@ -36,8 +39,11 @@ global proc ToolboxWindow()
 	string $parentScaleConstrainBtn = `button - parent $tab1Column -label "Parent and Scale Constrain" -command "ParentScaleConstrain()"`;
 	
 	separator -height 12 - parent $tab1Column;
-	string $orientJointBtn = `button - parent $tab1Column -label "Orient Joint Options" -command "OrientJoint()"`;
-	string $orientJointToggleBtn = `button - parent $tab1Column -label "Toggle Local Axes Visibility" -command "ShowOrient()"`;
+	string $orientJointRow = `rowLayout -parent $tab1Column -numberOfColumns 2 -columnWidth 1 125 -adjustableColumn 2 -columnAttach 1 "both" 0`;
+
+	string $orientJointBtn = `button - parent $orientJointRow -label "Orient Joint Options" -command "OrientJoint()"`;
+	//string $orientJointToggleBtn = `button - parent $tab1Column -label "Toggle Local Axes Visibility" -command "ShowOrient()"`;
+	string $toggle = `iconTextButton -style "iconOnly" -image1 "channelBoxUseManips.png" -parent $orientJointRow -command "ShowOrient()"`;	
 	
 	separator -height 12 - parent $tab1Column;
 	string $scaleCompLabel = `text -label "Scale Compensation" -parent $tab1Column`;
@@ -50,29 +56,30 @@ global proc ToolboxWindow()
 	string $placeControlsBtn = `button - parent $tab1Column -label "Place Controls" -command "PlaceControls()"`;
 	
 	separator -height 12 - parent $tab1Column;
-	string $creatLocatorBtn = `button - parent $tab1Column -label "Create Locators" -command "CreateManyLocators()"`;
-	string $locatorRow = `rowLayout -parent $tab1Column -numberOfColumns 2 -columnWidth 1 75 -adjustableColumn 2 -columnAttach 1 "both" 0`;
+	string $locatorRow = `rowLayout -parent $tab1Column -numberOfColumns 3 -columnWidth 1 62 -adjustableColumn 2 -columnAttach 1 "both" 0`;
+		string $creatLocatorBtn = `button - parent $locatorRow -label "Locators" -command "CreateManyLocators($locatorBtnSelected)"`;
 		string $locatorButtons = `radioCollection -parent $locatorRow`;
-			string $locatorBtn1 = `radioButton -label "Each"`;
-			string $locatorBtn2 = `radioButton -label "All"`;
+			string $locatorBtn1 = `radioButton -label "Each" -changeCommand "ChangeLocatorButtons(\"Each\")" "Each"`;
+			string $locatorBtn2 = `radioButton -label "All" -changeCommand "ChangeLocatorButtons(\"All\")" "All"`;
 		radioCollection -edit -select $locatorBtn1 $locatorButtons;
-
 	
 	separator -height 12 - parent $tab1Column;
 	string $renameBtn = `button - parent $tab1Column -label "Rename" -command "RenamePrompt()"`;
-	
+	string $searchAndReplaceBtn = `button - parent $tab1Column -label "Search And Replace" -command "performSearchReplaceNames 1"`;
+
 	separator -height 12 - parent $tab1Column;
-	string $randomPlaceBtn = `button - parent $tab1Column -label "Random Placement" -command "RandomPlacementPrompt()"`;
-	
+	string $polyCountBtn = `button - parent $tab1Column -label "Poly Count" -command "TogglePolyCount;"`;
+
 	separator -height 12 - parent $tab1Column;
-	
 	string $rigsRow = `rowLayout -parent $tab1Column -numberOfColumns 3 -columnAlign 2 "left"`;
 		string $FKButton = `iconTextButton -style "iconAndTextVertical" -image1 "kinJoint.png" -label "FK" - parent $rigsRow -command "CreateFKPrompt()"`;
 		string $IKButton = `iconTextButton -style "iconAndTextVertical" -image1 "kinHandle.png" -label "IK" - parent $rigsRow`;
 		string $RKButton = `iconTextButton -style "iconAndTextVertical" -image1 "kinJoint.png" -label "RK" - parent $rigsRow`;	
-		
-		
+				
 	string $tab2Column = `columnLayout -adjustableColumn 1 -columnAlign "center" -parent $tabs`;
+	
+		separator -height 12 - parent $tab2Column;
+		string $randomPlaceBtn = `button - parent $tab2Column -label "Random Placement" -command "RandomPlacementPrompt()"`;
 		separator -height 12 - parent $tab2Column;
 		string $otherLabel = `text -label "..." -parent $tab2Column`;
 
@@ -87,7 +94,7 @@ global proc ToolboxWindow()
 	string $myName = `text -label "2017  " -parent $mainColumn -align "right"`;
 	
     // showWindow $myWindow;
-	dockControl -area "left" -content $myWindow -allowedArea "left" -allowedArea "right" -label "My Toolbox" $myDock;
+	dockControl -area "left" -content $myWindow -allowedArea "left" -allowedArea "right" -label "Cody" $myDock;
 	dockControl -edit -width 160 -fixedWidth 1 -height 560 -fixedHeight 1 $myDock;
 }
 
@@ -95,4 +102,10 @@ global proc ParentScaleConstrain()
 {
 	parentConstraint -weight 1;
 	scaleConstraint -offset 1 1 1 -weight 1;
+}
+
+global proc ChangeLocatorButtons(string $type)
+{
+	global string $locatorBtnSelected;
+	$locatorBtnSelected = $type;
 }

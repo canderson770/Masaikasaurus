@@ -1,4 +1,0 @@
-source myToolbox;
-
-ikSpringSolver;
-ToolboxWindow();
