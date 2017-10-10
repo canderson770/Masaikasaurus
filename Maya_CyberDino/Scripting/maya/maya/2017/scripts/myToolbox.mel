@@ -7,21 +7,23 @@ source createLocatorScript;
 source createJointsScript;
 source createFKScript;
 
-global string $locatorBtnSelected = "unchanged";
+global string $locatorBtnSelected = "";
 
-global proc MyToolboxWindow()
+global proc CreateMyWindow()
 {
-    string $myWindow = "myToolboxWindow";
-    string $myDock = "MyToolboxDock";
+ //   string $myWindow = "myToolboxWindow";
+//    string $myDock = "MyToolboxDock";
 
-    if(`window -exists $myWindow` == true)
-        deleteUI -window $myWindow;
+ //   if(`window -exists $myWindow` == true)
+  //      deleteUI -window $myWindow;
 		
-	if(`dockControl -exists $myDock`)
-		deleteUI $myDock;
+	//if(`workspaceControl -exists $myDock`)
+	//	deleteUI $myDock;
+
         
-    $myWindow = `window -title "Window" -width 200 -iconName "logo-32.png" $myWindow`;
-	string $mainColumn = `columnLayout -adjustableColumn 1 -columnAlign "center" -parent $myWindow`;
+        
+//    $myWindow = `window -title "Window" -width 200 -iconName "logo-32.png" $myWindow`;
+	string $mainColumn = `columnLayout -adjustableColumn 1 -columnAlign "center"`;
 	
 	string $imageRow = `rowLayout -parent $mainColumn -numberOfColumns 2 -adjustableColumn 2 -columnAlign 2 "center" -backgroundColor 1 1 1`;
 	    string $myImage = `picture -image "logo-32.png" -parent $imageRow`;
@@ -68,6 +70,7 @@ global proc MyToolboxWindow()
 	string $searchAndReplaceBtn = `button - parent $tab1Column -label "Search And Replace" -command "performSearchReplaceNames 1"`;
 
 	separator -height 12 - parent $tab1Column;
+	// string $polyCountBtn = `iconTextButton -style "iconOnly" -image1 "WireFrame.png" -parent $tab1Column -command "TogglePolyCount"`;	
 	string $polyCountBtn = `button - parent $tab1Column -label "Poly Count" -command "TogglePolyCount;"`;
 
 	separator -height 12 - parent $tab1Column;
@@ -93,14 +96,15 @@ global proc MyToolboxWindow()
 	// separator -height 15 - parent $mainColumn;
 	string $myName = `text -label "2017  " -parent $mainColumn -align "right"`;
 	
-    // showWindow $myWindow;
-	dockControl -area "left" -content $myWindow -allowedArea "left" -allowedArea "right" -label "Cody" $myDock;
-	dockControl -edit -width 160 -fixedWidth 1 -height 560 -fixedHeight 1 $myDock;
+	
+    //showWindow $myWindow;
+	//dockControl -area "left" -content $myWindow -allowedArea "left" -allowedArea "right" -label "My Toolbox" $myDock;
+	//dockControl -edit -width 160 -fixedWidth 1 -height 560 -fixedHeight 1 $myDock;
 }
 
 global proc ParentScaleConstrain()
 {
-	parentConstraint -weight 1;
+	parentConstraint -mo -weight 1;
 	scaleConstraint -offset 1 1 1 -weight 1;
 }
 
@@ -108,4 +112,18 @@ global proc ChangeLocatorButtons(string $type)
 {
 	global string $locatorBtnSelected;
 	$locatorBtnSelected = $type;
+}
+
+
+global proc MyToolboxWindow()
+{
+    string $myWorkspace  = "MyToolboxWorkspace";
+    if(`workspaceControl -exists $myWorkspace` != true)
+	{
+		 $myWorkspace = `workspaceControl -retain false -floating false -label Cody -widthProperty "preferred" 
+			-initialWidth 160 -initialHeight 560 -resizeWidth 160 -resizeHeight 560 
+			-uiScript "CreateMyWindow()" $myWorkspace`;
+	}
+	if(!`workspaceControl -q -visible $myWorkspace`)
+		workspaceControl -restore $myWorkspace;
 }
