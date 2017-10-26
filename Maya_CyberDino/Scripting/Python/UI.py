@@ -28,10 +28,10 @@ def control_window():
     
 	
 def control_button(type, txt_field, float_field):
-	#query controls values
+    #query controls values
     scale_val = cmds.floatSliderGrp(scale_field, q=True, value=True)
     name = cmds.textFieldGrp(name_field, q=True, text=True)
 	
-	import create_control
-	reloatd(create_control)
-	create_control.create_control(type, name, scale_val)
+    import create_control
+    reloatd(create_control)
+    create_control.create_control(type, name, scale_val)
