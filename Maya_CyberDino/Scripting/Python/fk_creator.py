@@ -4,16 +4,24 @@ import maya.cmds as cmds
 def create_fk():
     '''Creates a FK system along a single chain of joints'''
 
+    last_ctrl = ''
     cmds.select(hi=True)
     sels = cmds.ls(sl=True)
+    
+    for sel in sels:
+        cmds.select(clear=True)
+        pos = cmds.xform(sel, q=True, rotatePivot=True, ws=True)
+        rot = cmds.xform(sel, q=True, ro=True, ws=True)
+        ctrl = cmds.circle( nr=rot, c=pos)
 
+        if last_ctrl != '':
+            cmds.parent(ctrl, last_ctrl)
 
+        last_ctrl = ctrl
+        
+        
 '''// MILESTONE
 1
-// Cody
-Anderson
-// Date:9 / 22 / 17
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 proc
 CreateFKJoints(float $radius)
 {
