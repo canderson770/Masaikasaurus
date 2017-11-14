@@ -185,9 +185,9 @@ def broken_fk():
         
         #Lock and/or hide scale and visibility
         cmds.setAttr('%s.v' % ctrl[0], lock=True, keyable=False, channelBox=False)
-        cmds.setAttr('%s.sx' % ctrl[0], lock=True)
-        cmds.setAttr('%s.sy' % ctrl[0], lock=True)
-        cmds.setAttr('%s.sz' % ctrl[0], lock=True)
+        cmds.setAttr('%s.sx' % ctrl[0], lock=True, keyable=False)
+        cmds.setAttr('%s.sy' % ctrl[0], lock=True, keyable=False)
+        cmds.setAttr('%s.sz' % ctrl[0], lock=True, keyable=False)
         
     #Clear selection    
     cmds.select(clear=True)
