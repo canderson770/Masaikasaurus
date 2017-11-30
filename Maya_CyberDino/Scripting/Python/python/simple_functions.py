@@ -1,7 +1,8 @@
 #simple_functions
-#2017-11-06
+#2017-11-30
 #============================================
 import maya.cmds as cmds
+import maya.mel as mel
 
 
 def delete_history():
@@ -18,4 +19,4 @@ def parent_scale_constrain():
     cmds.scaleConstraint()
     
 def toggle_poly_count():
-    print('')
+    mel.eval('TogglePolyCount')

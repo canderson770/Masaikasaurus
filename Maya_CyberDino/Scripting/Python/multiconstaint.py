@@ -10,7 +10,7 @@ def multiconstraint(sel_method):
     targets, nodes = [],[]
     
 	if(sel_method):
-    	targets = sels[0::2]
+    	targets = sels[0::2] #[start:end:step]
     	nodes = sels[1::2]
     else:
         targets = sels[:0:len(sels)/2]
