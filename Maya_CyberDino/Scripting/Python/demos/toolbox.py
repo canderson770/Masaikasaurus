@@ -3,10 +3,14 @@
 #============================================
 import maya.cmds as cmds
 import maya.mel as mel
-import rename_functions
-reload(rename_functions)
+
 
 def create_my_toolbox():
+	import rename_functions
+	
+	reload(create_control)
+	
+	
 	main_column = cmds.columnLayout(adjustableColumn=True, columnAlign='center')
     
 	image_row = cmds.rowLayout(parent=main_column, numberOfColumns=2, adjustableColumn=2, columnAlign=(2,'center'), backgroundColor=(1,1,1))
@@ -59,7 +63,7 @@ def create_my_toolbox():
 	#Rename Functions
 	cmds.separator(height=12, parent=tab_1_column)
 	rename_button = cmds.button(parent=tab_1_column, label='Rename', command='')
-	search_and_replace_button = cmds.button(parent=tab_1_column, label='Search And Replace', command=lambda *args: rename_functions.search_and_replace())
+	search_and_replace_button = cmds.button(parent=tab_1_column, label='Search And Replace', command="lambda *args rename_functions.search_and_replace()")
 
 	#Auto rigs
 	cmds.separator(height=12, parent=tab_1_column)
