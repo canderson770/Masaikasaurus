@@ -1,22 +1,22 @@
 #custom_outliner
-#2017-11-06
+#2017-12-05
 #============================================
 import maya.cmds as cmds
 
 if cmds.window(custom_outliner_window, ex=True):
     cmds.deleteUI(custom_outliner_window)
-custom_outliner_window = cmds.window(title='Custom Outliner')
+custom_outliner_window = cmds.window(title='Custom Outliner', minimizeButton=False, maximizeButton=False)
 
-custom_outliner_layout = cmds.paneLayout( configuration='horizontal2' )
-custom_outliner_list = cmds.textScrollList(height=450,numberOfRows=8, allowMultiSelection=True)
-cmds.rowLayout(numberOfColumns=6)
-cmds.button(label='Add', command='outliner_add()')
-cmds.button(label='Remove', command='outliner_remove()')
-cmds.button(label='Clear', command='outliner_clear()')
-cmds.button(label='Sort', command='outliner_sort()')
-cmds.button(label='Up', command='outliner_up()')
-cmds.button(label='Down', command='outliner_down()')
-cmds.window(custom_outliner_window, edit=True, widthHeight=(230, 500))
+custom_outliner_column = cmds.columnLayout(parent=custom_outliner_window, adjustableColumn=True)
+custom_outliner_row_buttons = cmds.rowLayout(parent=custom_outliner_column, numberOfColumns=6)
+custom_outliner_add_button = cmds.button(parent=custom_outliner_row_buttons, label='Add', command='outliner_add()')
+custom_outliner_remove_button =cmds.button(parent=custom_outliner_row_buttons, label='Remove', command='outliner_remove()')
+custom_outliner_clear_button = cmds.button(parent=custom_outliner_row_buttons, label='Clear', command='outliner_clear()')
+custom_outliner_sort_button = cmds.button(parent=custom_outliner_row_buttons, label='Sort', command='outliner_sort()')
+custom_outliner_up_button = cmds.button(parent=custom_outliner_row_buttons, label='Up', command='outliner_up()')
+custom_outliner_down_button = cmds.button(parent=custom_outliner_row_buttons, label='Down', command='outliner_down()')
+custom_outliner_list = cmds.textScrollList(parent=custom_outliner_column, height=580, width=225, allowMultiSelection=True, deleteKeyCommand='outliner_remove()', selectCommand='outliner_select()')
+cmds.window(custom_outliner_window, edit=True, widthHeight=(230, 610))
 cmds.showWindow(custom_outliner_window)
 
 def outliner_select():
@@ -30,27 +30,33 @@ def outliner_add():
     
 def outliner_remove():
     sels = cmds.ls(sl=True)
-    cmds.textScrollList(custom_outliner_list, q=True, removeItem=True)
+    cmds.textScrollList(custom_outliner_list, e=True, removeItem=sels)
     
 def outliner_clear():
     cmds.textScrollList(custom_outliner_list, e=True, removeAll=True)
 
 def outliner_sort():
-    temp_list = cmds.textScrollList(custom_outliner_list, q=True, allItems=True)
-    temp_list.sort()
+    sorted_list = sorted(cmds.textScrollList(custom_outliner_list, q=True, allItems=True))
     cmds.textScrollList(custom_outliner_list, e=True, removeAll=True)
-    cmds.textScrollList(custom_outliner_list, e=True, append=temp_list)
+    cmds.textScrollList(custom_outliner_list, e=True, append=sorted_list)
     
 def outliner_up():
+    sels = cmds.textScrollList(custom_outliner_list, q=True, selectItem=True)
+    if len(sels) < 2:
+        oldIndex = cmds.textScrollList(custom_outliner_list, q=True, selectIndexedItem=True)
+        if oldIndex[0] > 1:
+            newIndex = oldIndex[0] - 1
+            cmds.textScrollList(custom_outliner_list, e=True, removeItem=sels)
+            cmds.textScrollList(custom_outliner_list, e=True, appendPosition=(newIndex, sels[0]))
+            cmds.textScrollList(custom_outliner_list, e=True, selectItem=sels)
     
 def outliner_down():
-    
-#TextScrollList
-
-#marking menu
-
-#Remove Function - Query Highlighted -> Remove from list
-
-#SelectHighlighted objects in scene
-#Query Highlighted
-#Select
+    sels = cmds.textScrollList(custom_outliner_list, q=True, selectItem=True)
+    if len(sels) < 2:
+        oldIndex = cmds.textScrollList(custom_outliner_list, q=True, selectIndexedItem=True)
+        num_items = cmds.textScrollList(custom_outliner_list, q=True, numberOfItems=True)
+        if oldIndex[0] < num_items:
+            newIndex = oldIndex[0] + 1
+            cmds.textScrollList(custom_outliner_list, e=True, removeItem=sels)
+            cmds.textScrollList(custom_outliner_list, e=True, appendPosition=(newIndex, sels[0]))
+            cmds.textScrollList(custom_outliner_list, e=True, selectItem=sels)
