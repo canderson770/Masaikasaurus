@@ -3,6 +3,7 @@
 #============================================
 import maya.cmds as cmds
 
+    
 def custom_outliner():        
     custom_outliner_window =  'custom_outliner'
 
@@ -13,13 +14,13 @@ def custom_outliner():
     
     custom_outliner_column = cmds.columnLayout(parent=custom_outliner_window, adjustableColumn=True)
     custom_outliner_row_buttons = cmds.rowLayout(parent=custom_outliner_column, numberOfColumns=6)
-    custom_outliner_list = cmds.textScrollList(parent=custom_outliner_column, height=580, width=225, allowMultiSelection=True, deleteKeyCommand='outliner_remove(custom_outliner_list)', selectCommand='outliner_select(custom_outliner_list)')
-    custom_outliner_add_button = cmds.button(parent=custom_outliner_row_buttons, label='Add', command='outliner_add(custom_outliner_list)')
-    custom_outliner_remove_button =cmds.button(parent=custom_outliner_row_buttons, label='Remove', command='outliner_remove(custom_outliner_list)')
-    custom_outliner_clear_button = cmds.button(parent=custom_outliner_row_buttons, label='Clear', command='outliner_clear(custom_outliner_list)')
-    custom_outliner_sort_button = cmds.button(parent=custom_outliner_row_buttons, label='Sort', command='outliner_sort(custom_outliner_list)')
-    custom_outliner_up_button = cmds.button(parent=custom_outliner_row_buttons, label='Up', command='outliner_up(custom_outliner_list)')
-    custom_outliner_down_button = cmds.button(parent=custom_outliner_row_buttons, label='Down', command='outliner_down(custom_outliner_list)')
+    custom_outliner_list = cmds.textScrollList(parent=custom_outliner_column, height=580, width=225, allowMultiSelection=True, deleteKeyCommand=lambda *args: outliner_remove(custom_outliner_list), selectCommand=lambda *args: outliner_select(custom_outliner_list))
+    custom_outliner_add_button = cmds.button(parent=custom_outliner_row_buttons, label='Add', command=lambda *args: outliner_add(custom_outliner_list))
+    custom_outliner_remove_button =cmds.button(parent=custom_outliner_row_buttons, label='Remove', command=lambda *args: outliner_remove(custom_outliner_list))
+    custom_outliner_clear_button = cmds.button(parent=custom_outliner_row_buttons, label='Clear', command=lambda *args: outliner_clear(custom_outliner_list))
+    custom_outliner_sort_button = cmds.button(parent=custom_outliner_row_buttons, label='Sort', command=lambda *args: outliner_sort(custom_outliner_list))
+    custom_outliner_up_button = cmds.button(parent=custom_outliner_row_buttons, label='Up', command=lambda *args: outliner_up(custom_outliner_list))
+    custom_outliner_down_button = cmds.button(parent=custom_outliner_row_buttons, label='Down', command=lambda *args: outliner_down(custom_outliner_list))
     cmds.window(custom_outliner_window, edit=True, widthHeight=(230, 610))
     cmds.showWindow(custom_outliner_window)
 
