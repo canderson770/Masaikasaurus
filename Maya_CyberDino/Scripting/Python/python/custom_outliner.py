@@ -89,3 +89,5 @@ def outliner_down(custom_outliner_list):
                 cmds.textScrollList(custom_outliner_list, e=True, removeItem=sels)
                 cmds.textScrollList(custom_outliner_list, e=True, appendPosition=(newIndex, sels[0]))
                 cmds.textScrollList(custom_outliner_list, e=True, selectItem=sels)
+                
+                

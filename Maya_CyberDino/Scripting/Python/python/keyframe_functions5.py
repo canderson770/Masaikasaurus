@@ -86,7 +86,11 @@ def play_clip(play_button, start, end):
 
 
 def create_clip_row(custom_animation_column):
-    clip_layout = cmds.columnLayout(parent=custom_animation_column, bgc=(.2, .2, .2))
+    clip_layout = cmds.frameLayout(parent=custom_animation_column, bgc=(.2, .2, .2), cll=True, cl=False, l='', backgroundColor=(1,1,1))
+    
+    right_click_clip_menu = cmds.popupMenu(parent=clip_layout)
+    cmds.menuItem(parent=right_click_clip_menu, label='Delete', command=lambda *args: delete_row(delete_button, False))
+    
     cmds.rowLayout(parent=clip_layout, numberOfColumns=4, columnAlign4=('center','center','center','center'))
     cmds.text(label='', width = 20)
     cmds.text(label='Clip Name', width=110)
@@ -95,12 +99,11 @@ def create_clip_row(custom_animation_column):
     
     cmds.rowLayout(parent=clip_layout, numberOfColumns=5)
     play_button = cmds.symbolButton(image='playClip.png', h=20, w=20, c=lambda *args: play_clip(play_button, cmds.textField(start_field, q=True, tx=True), cmds.textField(end_field, q=True, tx=True)))
-    cmds.textField(width=110)
+    clip_name = cmds.textField(width=110, cc=lambda *args: rename_frame_layout(clip_layout, clip_name))
     start_field = cmds.textField(width=40, text=int(cmds.playbackOptions(q=True, min=True)), cc=lambda *args: change_range(clip_frame_list, cmds.textField(start_field, q=True, tx=True), cmds.textField(end_field, q=True, tx=True)))
     end_field = cmds.textField(width=40, text=int(cmds.playbackOptions(q=True, max=True)), cc=lambda *args: change_range(clip_frame_list, cmds.textField(start_field, q=True, tx=True), cmds.textField(end_field, q=True, tx=True)))
     delete_button = cmds.symbolButton(image='deleteActive.png', h=20, w=20, c=lambda *args: delete_row(delete_button, False) )
     
-    cmds.separator(parent=clip_layout)
     cmds.text(parent=clip_layout, label='Keyframes', width=250)
     
     clip_frame_list = cmds.textScrollList(parent=clip_layout, selectCommand=lambda *args: frame_select(clip_frame_list, 
@@ -171,8 +174,11 @@ def add_frames(clip_frame_list, start, end):
     cmds.textScrollList(clip_frame_list, e=True, height=new_height)
     
     
+def rename_frame_layout(frame_layout, clip_name):
+    cmds.frameLayout(frame_layout, e=True, label=cmds.textField(clip_name, q=True, text=True))
+    
 
-#custom_animation()
+custom_animation()
 
 #keys = cmds.selectKey(add=True, keyframe=True, time=(0,24))
 #print(keys)
