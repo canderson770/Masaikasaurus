@@ -4,10 +4,11 @@
 import maya.cmds as cmds
 
 #convert_to_joints(False)
-def convert_to_joints(replace):
+def convert_to_joints(checkbox):
     '''Creates joints at selection. Will replace selection if the parameter is True'''
     sels = cmds.ls(sl=True)
     last_jnt = ''
+    replace = cmds.checkBox(checkbox, q=True, value=True)
 
     for sel in sels:
         cmds.select(clear=True)

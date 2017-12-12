@@ -1,7 +1,8 @@
 #joint_functions
-#2017-11-06
+#2017-12-07
 #============================================
 import maya.cmds as cmds
+import maya.mel as mel
 
 
 def show_joint_attr():
@@ -14,18 +15,18 @@ def show_joint_attr():
         cmds.setAttr('%s.jointOrientY' % sel, lock=False, keyable=True)
         cmds.setAttr('%s.jointOrientZ' % sel, lock=False, keyable=True)
         #cmds.setAttr('%s.displayLocalAxis' % sel, lock=False, keyable=True)
-        cmds.setAttr('%s.segmentScaleCompensate' % sel, lock=False)
-        cmds.setAttr('%s.segmentScaleCompensate' % sel, 0, lock=True, keyable=True)
+        cmds.setAttr('%s.segmentScaleCompensate' % sel, keyable=True)
         
         
-def scale_compensate_off():
+def scale_compensate(onOff):
 
     sels = cmds.ls(type='joint')
     
     for sel in sels:
-        cmds.setAttr('%s.segmentScaleCompensate' % sel, lock=False)
-        cmds.setAttr('%s.segmentScaleCompensate' % sel, 0)
-    
+        cmds.setAttr('%s.segmentScaleCompensate' % sel, onOff)
+
+def display_orient_joint_options():
+    mel.eval('OrientJointOptions')
 
 def display_local_axis():
     

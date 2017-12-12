@@ -1,5 +1,5 @@
 #simple_functions
-#2017-12-07
+#2017-11-30
 #============================================
 import maya.cmds as cmds
 import maya.mel as mel

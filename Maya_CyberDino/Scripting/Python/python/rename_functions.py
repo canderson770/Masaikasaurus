@@ -1,5 +1,5 @@
 #rename_functions
-#2017-11-30
+#2017-12-07
 #============================================
 import maya.cmds as cmds
 import maya.mel as mel
@@ -22,3 +22,10 @@ def sequential_renamer(name):
         
 def search_and_replace():
     mel.eval('performSearchReplaceNames 1;')
+    
+    
+def rename_prompt():
+    result = cmds.promptDialog(title='Rename', message='Enter Name:', button=('OK','Cancel'), defaultButton='OK', cancelButton='Cancel', dismissString='Cancel')
+    
+    if result == 'OK':
+        sequential_renamer(cmds.promptDialog(q=True, text=True))

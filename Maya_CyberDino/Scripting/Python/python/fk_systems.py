@@ -169,8 +169,8 @@ def broken_fk():
             cmds.parent(grp, master_ctrl_grp)
             
             #Contrain to previous control
-            transform_constraint = cmds.parentConstraint(last_ctrl, grp, mo=True, skipTranslate=('x','y','z'), n='%s_parentTransformConstaint' % grp)
-            rotate_constraint = cmds.parentConstraint(last_ctrl, grp, mo=True, skipRotate=('x','y','z'), n='%s_parentRotateConstaint' % grp)
+            transform_constraint = cmds.parentConstraint(last_ctrl, grp, mo=True, skipRotate=('x','y','z'), n='%s_parentTransformConstaint' % grp)
+            rotate_constraint = cmds.parentConstraint(last_ctrl, grp, mo=True, skipTranslate=('x','y','z'), n='%s_parentRotateConstaint' % grp)
             
             #Connect Follow Transform and Follow Rotate
             cmds.connectAttr('%s.FollowTransform' % ctrl[0], transform_constraint[0] + '.%sW0' % last_ctrl[0], f=True)

@@ -3,13 +3,15 @@
 #============================================
 import maya.cmds as cmds
 
-def center_locator(type):
+def center_locator(locator_buttons):
     '''Creates locator at each selection or center of all selections'''
     
     sels = cmds.ls(sl=True)
     saved_sel = []
+    radio_button = cmds.radioCollection(locator_buttons, q=True, select=True)
+    type =  cmds.radioButton(radio_button, q=True, label=True)
     
-    if type == 'each':
+    if type == 'Each':
         for sel in sels:
             #make locator
             locator = cmds.spaceLocator(n='%s_Locator' % sel)
@@ -29,7 +31,7 @@ def center_locator(type):
         for sel in saved_sel:
             cmds.select(sel, add=True)
             
-    elif type == 'all':
+    elif type == 'All':
 		bbox = cmds.exactWorldBoundingBox()
 
 		pos = [0,0,0]
