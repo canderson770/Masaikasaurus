@@ -101,8 +101,8 @@ def create_my_toolbox():
 	auto_rigs_row = cmds.rowLayout(parent=tab_1_column, numberOfColumns=4, columnAlign=(2, 'left'))
 	fk_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinJoint.png', label='FK', annotation='Creates an FK rig. Select first joint of chain then run', parent= auto_rigs_row, command=lambda *args: fk_systems.simple_fk())
 	broken_fk_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinJoint.png', label='Broken', annotation='Creates an broken FK rig. Select first joint of chain then run', parent= auto_rigs_row, command=lambda *args: fk_systems.broken_fk())
-	ik_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinHandle.png', label='IK', annotation='Creates an IK rig. Select first joint of chain then run', parent= auto_rigs_row, command='')
-	rk_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinJoint.png', label='RK', annotation='Creates an RK rig. Select first joint of chain then run', parent= auto_rigs_row, command='')
+	#ik_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinHandle.png', label='IK', annotation='Creates an IK rig. Select first joint of chain then run', parent= auto_rigs_row, command='')
+	#rk_button = cmds.iconTextButton(style='iconAndTextVertical', image1='kinJoint.png', label='RK', annotation='Creates an RK rig. Select first joint of chain then run', parent= auto_rigs_row, command='')
 	
 	#Outliner
 	cmds.separator(height=12, parent=tab_1_column)
@@ -137,5 +137,5 @@ def my_toolbox_window():
         initialWidth=160, initialHeight=570, resizeWidth=160, resizeHeight=560, uiScript='create_my_toolbox()')
 
 #print(cmds.about(version=True))
-create_my_toolbox()
+#create_my_toolbox()
 #my_toolbox_window()
