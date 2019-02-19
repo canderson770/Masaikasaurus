@@ -1,0 +1,39 @@
+-The tail deformations are too sharp. Address this by adjusting skinning on the geometry and/or adding additional IK jnts. 
+
+
+
+-Adjust the skinning on the neck so that it doesn't separate from the head when the head is rotated. It should also be affected by the jaw control so prevent it from going through the back of the mouth. 
+
+
+
+-Advanced twist in the tail needs to be resolved. The axis and vector settings are causing inconsistent twisting. See attached and speak with me for additional assistance if needed.
+
+
+
+
+
+
+
+-Missing COG and hip controls. Remember, the Spine and Hip separate the systems of the upper and lower body and the COG acts as a parent to these 2 systems. 
+
+
+
+-Move the pole vector control so that they can be seen/used. Resize if necessary. The elbow controls are completely covered by default. 
+
+
+
+
+
+
+
+-Rotate the transform to notice an issue with the pole vector of the legs and resolve.
+
+
+
+
+-Fix hands and feet detaching from limbs and the IK control is extended past the limb. 
+
+
+
+-Lock and hide all unused attributes. 
+

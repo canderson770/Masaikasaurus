@@ -1,9 +1,0 @@
-string $sels[] = `ls -sl`;
-if(size($sels) != 0)
-	jointOrientToggleAxesVisibility;
-else
-{
-	SelectAllJoints;
-	jointOrientToggleAxesVisibility;
-	select -d;
-}
